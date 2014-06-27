@@ -1,11 +1,9 @@
-name    'hammondt-postfix'
+name    'postfix'
 version '0.1.0'
-source 'UNKNOWN'
-author 'hammondt'
+source 'https://stash.moo.umd.edu/projects/TIM/repos/puppet-postfix/'
+author 'Tim Hammond <hammondt@umd.edu>'
 license 'Apache License, Version 2.0'
-summary 'UNKNOWN'
-description 'UNKNOWN'
-project_page 'UNKNOWN'
-
-## Add dependencies, if any:
-# dependency 'username/name', '>= 1.2.0'
+summary 'Basic Postfix module'
+description 'Configures postfix to send mail locally'
+project_page 'https://stash.moo.umd.edu/projects/TIM/repos/puppet-postfix/'
+issues_url 'https://jira.moo.umd.edu'
