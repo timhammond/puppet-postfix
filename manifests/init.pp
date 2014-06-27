@@ -1,41 +1,36 @@
 # == Class: postfix
 #
-# Full description of class postfix here.
-#
-# === Parameters
-#
-# Document parameters here.
-#
-# [*sample_parameter*]
-#   Explanation of what this parameter affects and what it defaults to.
-#   e.g. "Specify one or more upstream ntp servers as an array."
+# Simple class to configure postfix to send mail directly. It's restricted to localhost.
+# There's no variables or anything to configure. Just include the class.
 #
 # === Variables
 #
-# Here you should define a list of variables that this module would require.
-#
-# [*sample_variable*]
-#   Explanation of how this variable affects the funtion of this class and if
-#   it has a default. e.g. "The parameter enc_ntp_servers must be set by the
-#   External Node Classifier as a comma separated list of hostnames." (Note,
-#   global variables should be avoided in favor of class parameters as
-#   of Puppet 2.6.)
-#
 # === Examples
 #
-#  class { postfix:
-#    servers => [ 'pool.ntp.org', 'ntp.local.company.com' ],
-#  }
+# include ::postfix
 #
 # === Authors
 #
-# Author Name <author@domain.com>
+# Tim Hammond <hammondt@umd.edu>
 #
 # === Copyright
 #
-# Copyright 2014 Your name here, unless otherwise noted.
+# Copyright 2014 Tim Hammond
 #
-class postfix {
 
+class postfix {
+  file { '/var/cache/debconf/postfix.preseed' :
+    ensure  => present,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    content => template('postfix/postfix.preseed.erb'),
+  }
+
+  package { 'postfix':
+    ensure       => latest,
+    require      => File["/var/cache/debconf/postfix.preseed"],
+    responsefile => "/var/cache/debconf/postfix.preseed",
+  }
 
 }
